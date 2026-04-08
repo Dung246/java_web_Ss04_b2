@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'com.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.13.2'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    // Servlet
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.1.0'
+
+    // 🔥 Spring MVC
+    implementation 'org.springframework:spring-webmvc:6.1.6'
+    implementation 'org.springframework:spring-context:6.1.6'
+
+    // Test
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
